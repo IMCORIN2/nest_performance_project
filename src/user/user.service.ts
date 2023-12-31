@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -55,5 +56,18 @@ export class UserService {
 
   async findByEmail(email: string) {
     return await this.userRepository.findOneBy({ email });
+  }
+
+  async getMyInfo(id: number) {
+    return await this.verifyUserById(id);
+  }
+
+  async verifyUserById(id: number) {
+    const user = await this.userRepository.findOneBy({ id });
+    if (_.isNil(user)) {
+      throw new NotFoundException('존재하지 않는 사용자입니다.');
+    }
+
+    return user;
   }
 }
