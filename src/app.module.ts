@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { PerformanceModule } from './performance/performance.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -43,6 +44,7 @@ const typeOrmModuleOptions = {
     TypeOrmModule.forRootAsync(typeOrmModuleOptions),
     AuthModule,
     UserModule,
+    PerformanceModule,
   ],
   controllers: [],
   providers: [],
