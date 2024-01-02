@@ -25,9 +25,9 @@ export class User {
   @Column({ type: 'enum', enum: Role, default: Role.User })
   role: Role;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Column({ type: 'number', default: 1000000 })
+  @Column({ type: 'int', default: 1000000 })
   point: number;
 }

@@ -12,14 +12,8 @@ export class PerformanceController {
   @Roles(Role.Admin)
   @Post()
   async postPerformance(@Body() performanceData: PerformanceDto) {
-    const postedPerformance = await this.performanceService.postPerformance(
-      performanceData.name,
-      performanceData.datetime,
-      performanceData.place,
-      performanceData.seat,
-      performanceData.image,
-      performanceData.category,
-    );
+    const postedPerformance =
+      await this.performanceService.postPerformance(performanceData);
 
     return {
       status: 201,

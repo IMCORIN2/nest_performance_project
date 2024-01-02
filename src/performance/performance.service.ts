@@ -2,7 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import _ from 'lodash';
 import { Repository } from 'typeorm';
-
+import { PerformanceDto } from './dto/performance.dto';
+import { Performance } from './entities/performance.entity';
 @Injectable()
 export class PerformanceService {
   constructor(
@@ -10,14 +11,9 @@ export class PerformanceService {
     private readonly performanceRepository: Repository<Performance>,
   ) {}
 
-  async postPerformance(
-    name: string,
-    datetime: Date,
-    place: string,
-    seat: number,
-    image: string,
-    category: string,
-  ) {
+  async postPerformance(performanceData: PerformanceDto) {
+    const { name, datetime, place, seat, image, category } = performanceData;
+    // console.log(name);
     const postedPerformance = await this.performanceRepository.save({
       name,
       datetime,
@@ -32,7 +28,14 @@ export class PerformanceService {
 
   async getAllPerformances(): Promise<Performance[]> {
     const allPerformances = await this.performanceRepository.find({
-      select: ['name', 'datetime', 'place', 'seat', 'image', 'category'],
+      select: {
+        name: true,
+        datetime: true,
+        place: true,
+        seat: true,
+        image: true,
+        category: true,
+      },
     });
 
     return allPerformances;

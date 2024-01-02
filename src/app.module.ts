@@ -8,6 +8,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PerformanceModule } from './performance/performance.module';
+import { ReservationModule } from './reservation/reservation.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -20,7 +21,7 @@ const typeOrmModuleOptions = {
     host: configService.get('DB_HOST'),
     port: configService.get('DB_PORT'),
     database: configService.get('DB_NAME'),
-    entities: [],
+    autoLoadEntities: true, //entity가 자동으로 더해지는 코드
     synchronize: configService.get('DB_SYNC'),
     logging: true,
   }),
@@ -45,6 +46,7 @@ const typeOrmModuleOptions = {
     AuthModule,
     UserModule,
     PerformanceModule,
+    ReservationModule,
   ],
   controllers: [],
   providers: [],

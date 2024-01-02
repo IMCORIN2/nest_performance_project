@@ -1,8 +1,7 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
-@Index('email', ['email'], { unique: true })
 @Entity({
-  name: 'users',
+  name: 'performances',
 })
 export class Performance {
   @PrimaryGeneratedColumn()

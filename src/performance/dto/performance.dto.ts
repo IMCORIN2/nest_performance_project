@@ -5,7 +5,7 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-
+// import { OmitType } from '@nestjs/mapped-types';
 export class PerformanceDto {
   @IsString()
   @IsNotEmpty({ message: '공연 이름을 입력해주세요' })
@@ -31,3 +31,6 @@ export class PerformanceDto {
   @IsNotEmpty({ message: '카테고리를 입력해주세요' })
   category: string;
 }
+// export class PerformanceDto extends OmitType(Performance, ['id']) {
+
+// }
