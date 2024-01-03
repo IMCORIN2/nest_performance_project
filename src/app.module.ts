@@ -22,6 +22,7 @@ const typeOrmModuleOptions = {
     port: configService.get('DB_PORT'),
     database: configService.get('DB_NAME'),
     autoLoadEntities: true, //entity가 자동으로 더해지는 코드
+    // entities: [__dirname + '/../**/*.entity.{js,ts}'],//entity가 자동으로 더해지는 코드
     synchronize: configService.get('DB_SYNC'),
     logging: true,
   }),

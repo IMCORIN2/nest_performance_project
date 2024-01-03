@@ -3,9 +3,10 @@ import { PerformanceController } from './performance.controller';
 import { PerformanceService } from './performance.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Performance } from './entities/performance.entity';
+import { Reservation } from 'src/reservation/entities/reservation.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Performance])],
+  imports: [TypeOrmModule.forFeature([Performance, Reservation])],
   controllers: [PerformanceController],
   providers: [PerformanceService],
   exports: [PerformanceService],

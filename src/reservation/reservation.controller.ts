@@ -1,27 +1,21 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { ReservationDto } from './dto/reservation.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('reservation')
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
-  // 로그인된 사용자만 접근할 수 있게 하는 데코레이터 없나
-  @Post()
+  // @UseGuards(AuthGuard('jwt'))
+  @Post(':userId')
   async reservePerformance(
-    @Body() reservationData: ReservationDto,
     @Param('userId') userId: number,
+    @Body() reservationData: ReservationDto,
   ) {
     // userId auth에서 못가져오나?
-
     const reservedPerformance =
-      await this.reservationService.reservePerformance(
-        userId,
-        reservationData.performanceId,
-        reservationData.dateTime,
-        reservationData.place,
-      );
+      await this.reservationService.reservePerformance(userId, reservationData);
 
     return {
       status: 201,
@@ -30,16 +24,16 @@ export class ReservationController {
     };
   }
 
-  // 로그인된 사용자만 접근할 수 있게 하는 데코레이터 없나
-  @Get('me')
+  // @UseGuards(AuthGuard('jwt'))
+  @Get('me/:userId')
   async getReservation(@Param('userId') userId: number) {
     const reservation =
       await this.reservationService.getReservationByUserId(userId);
 
     return {
       status: 200,
-      message: `${userId}님의 예약 내역입니다.`,
-      data: reservation,
+      message: `${reservation.user.name}님의 예약 내역입니다.`,
+      data: reservation.reservation,
     };
   }
 }

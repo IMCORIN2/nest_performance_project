@@ -2,11 +2,14 @@ import {
   Column,
   Entity,
   Index,
+  JoinColumn,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Role } from '../types/userRole.type';
+import { Reservation } from 'src/reservation/entities/reservation.entity';
 
 @Index('email', ['email'], { unique: true })
 @Entity({
@@ -30,4 +33,8 @@ export class User {
 
   @Column({ type: 'int', default: 1000000 })
   point: number;
+
+  @ManyToMany(() => Reservation, { cascade: true })
+  @JoinColumn()
+  reservation: Reservation;
 }

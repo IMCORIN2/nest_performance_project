@@ -13,10 +13,12 @@ export class PerformanceService {
 
   async postPerformance(performanceData: PerformanceDto) {
     const { name, datetime, place, seat, image, category } = performanceData;
-    // console.log(name);
+
+    const [date, time] = datetime;
     const postedPerformance = await this.performanceRepository.save({
       name,
-      datetime,
+      date,
+      time,
       place,
       seat,
       image,
@@ -30,7 +32,8 @@ export class PerformanceService {
     const allPerformances = await this.performanceRepository.find({
       select: {
         name: true,
-        datetime: true,
+        date: true,
+        time: true,
         place: true,
         seat: true,
         image: true,
@@ -54,6 +57,10 @@ export class PerformanceService {
         keyword: `%${searchKeyword}%`,
       })
       .getMany();
+
+    if (searchedPerformances.length === 0) {
+      throw new NotFoundException('검색 결과가 존재하지 않습니다.');
+    }
 
     return searchedPerformances;
   }

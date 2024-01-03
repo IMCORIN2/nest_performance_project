@@ -1,5 +1,6 @@
 import {
   IsDate,
+  IsDateString,
   IsEmail,
   IsNotEmpty,
   IsNumber,
@@ -11,9 +12,8 @@ export class PerformanceDto {
   @IsNotEmpty({ message: '공연 이름을 입력해주세요' })
   name: string;
 
-  @IsDate()
-  @IsNotEmpty({ message: '공연 날짜를 입력해주세요' })
-  datetime: Date;
+  @IsNotEmpty({ message: '공연 날짜 또는 시간을 입력해주세요' })
+  datetime: [string, string];
 
   @IsString()
   @IsNotEmpty({ message: '공연 장소를 입력해주세요' })

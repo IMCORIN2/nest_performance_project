@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { PerformanceService } from './performance.service';
 import { PerformanceDto } from './dto/performance.dto';
 import { Roles } from 'src/auth/roles.decorator';
 import { Role } from 'src/user/types/userRole.type';
-import { SearchPerformanceDto } from './dto/searchPerformance.dto';
+// import { SearchPerformanceDto } from './dto/searchPerformance.dto';
 
 @Controller('performance')
 export class PerformanceController {
@@ -33,8 +33,9 @@ export class PerformanceController {
     };
   }
 
-  @Get()
-  async searchPerformance(@Body() searchKeyword: SearchPerformanceDto) {
+  @Get('search')
+  async searchPerformance(@Query('keyword') searchKeyword: string) {
+    console.log(searchKeyword);
     const searchedPerformances =
       await this.performanceService.searchPerformance(searchKeyword);
 
@@ -45,7 +46,7 @@ export class PerformanceController {
     };
   }
 
-  @Get()
+  @Get(':id')
   async getPerformance(@Param('id') id: number) {
     const performance = await this.performanceService.getPerformance(id);
 
