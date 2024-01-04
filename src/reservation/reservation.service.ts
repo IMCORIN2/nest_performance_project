@@ -52,7 +52,9 @@ export class ReservationService {
     if (!performance.seat) {
       throw new BadRequestException('예약이 가득 찬 공연입니다.');
     }
-    console.log('1');
+    if (user.point < performance.price) {
+      throw new BadRequestException('결제 금액이 부족합니다.');
+    }
 
     //performnace 공연 좌석 수 차감
     const newSeatValue = (await performance.seat) - 1;

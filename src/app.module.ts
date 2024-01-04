@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PerformanceModule } from './performance/performance.module';
 import { ReservationModule } from './reservation/reservation.module';
+import { UserService } from './user/user.service';
+import { JwtService } from '@nestjs/jwt';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -50,6 +52,6 @@ const typeOrmModuleOptions = {
     ReservationModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [UserService, JwtService],
 })
 export class AppModule {}

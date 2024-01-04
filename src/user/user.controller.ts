@@ -22,7 +22,7 @@ export class UserController {
     return await this.userService.login(loginData.email, loginData.password);
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get('me/:id')
   async getMyInfo(@Param('id') id: number) {
     const user = await this.userService.getMyInfo(id);

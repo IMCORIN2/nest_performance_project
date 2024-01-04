@@ -7,7 +7,7 @@ import { AuthGuard } from '@nestjs/passport';
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Post(':userId')
   async reservePerformance(
     @Param('userId') userId: number,
@@ -24,7 +24,7 @@ export class ReservationController {
     };
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get('me/:userId')
   async getReservation(@Param('userId') userId: number) {
     const reservation =
